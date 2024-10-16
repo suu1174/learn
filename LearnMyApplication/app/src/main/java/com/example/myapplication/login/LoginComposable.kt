@@ -37,26 +37,12 @@ fun LoginWeekly(
     viewModel: LoginViewModel, navController: NavHostController,
     onBackClick: () -> Unit
 ) {
-    //ライフサイクルをViewModelに紐づける
-    /*viewModel.ObserveLifeCycleEvent()
-    viewModel.
-    Scaffold(
-        topBar = { BaseBackButton(titleRes = null, onBackClick = onBackClick) },
-        containerColor = AppColor.Screen_Background_White,
-        contentColor = AppColor.Text_Black
-    ) { paddingValues ->
-        K04M01_GraphScreen(
-            modifier = Modifier.padding(paddingValues),
-            viewModel = viewModel
-        )
-    } */
     Login(navController)
 }
 
+//各viewの配置
 @Composable
 fun Login(navController: NavController) {
-
-
 
     Column(modifier = Modifier.size(width = 100.dp, height = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -67,17 +53,13 @@ fun Login(navController: NavController) {
         Column(modifier = Modifier.verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text("メールアドレス",modifier = Modifier.padding(end = 175.dp, top = 25.dp))
-
-
             TextFieldPasswordLogin()
             Text("パスワード", modifier = Modifier.padding(end = 195.dp, top = 25.dp))
             TextFieldMailLogin()
 
             Spacer(modifier = Modifier.height(300.dp))
 
-
             Button(
-                //modifier = Modifier.size(width = 10.dp, height = 10.dp),
                 shape = CutCornerShape(percent = 10),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
                 onClick = {
@@ -93,8 +75,6 @@ fun Login(navController: NavController) {
                         password = it
                     }
 
-
-
                     ins.signIn(mail, password)
                 },
 
@@ -105,6 +85,27 @@ fun Login(navController: NavController) {
     }
 }
 
+//メールを入力するためのテキストフィールド
+@Composable
+fun TextFieldMailLogin() {
+    var text by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    TextField(
+        value = text, onValueChange = { newText ->
+            text = newText
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {
+
+            RegisterData.mail = text
+            keyboardController?.hide()
+        }), label = { Text("入力ボックス")}
+
+    )
+}
+
+//パスワードを入力するためのテキストフィールド
 @Composable
 fun TextFieldPasswordLogin() {
     var text by remember { mutableStateOf("") }
@@ -127,22 +128,5 @@ fun TextFieldPasswordLogin() {
     )
 }
 
-@Composable
-fun TextFieldMailLogin() {
-    var text by remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
 
-    TextField(
-        value = text, onValueChange = { newText ->
-            text = newText
 
-        },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = {
-
-            RegisterData.mail = text
-            keyboardController?.hide()
-        }), label = { Text("入力ボックス")}
-
-    )
-}

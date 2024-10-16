@@ -26,11 +26,9 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,18 +44,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ProcessLifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.example.myapplication.NavName
-import com.example.myapplication.RegisterData
-import com.example.myapplication.expenditure.Expenditure
-import com.example.myapplication.expenditure.ExpenditureViewModel
-import com.example.myapplication.expenditure.ExpenditureWeekly
-import com.example.myapplication.expenditure.MyScreen2
-import kotlinx.coroutines.delay
 import java.util.Calendar
 
 @Composable
@@ -65,22 +54,10 @@ fun EditingWeekly(
     viewModel: EditingViewModel, navController: NavHostController,
     onBackClick: () -> Unit
 ) {
-    //ライフサイクルをViewModelに紐づける
-    /*viewModel.ObserveLifeCycleEvent()
-    viewModel.
-    Scaffold(
-        topBar = { BaseBackButton(titleRes = null, onBackClick = onBackClick) },
-        containerColor = AppColor.Screen_Background_White,
-        contentColor = AppColor.Text_Black
-    ) { paddingValues ->
-        K04M01_GraphScreen(
-            modifier = Modifier.padding(paddingValues),
-            viewModel = viewModel
-        )
-    } */
     Editing(navController, viewModel)
 }
 
+//各viewの配置
 @Composable
 fun Editing(navController: NavController, viewModel: EditingViewModel) {
 
@@ -91,7 +68,6 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
         .background(Color(255, 236, 179)))
 
     Column(modifier = Modifier.size(width = 100.dp, height = 100.dp),horizontalAlignment = Alignment.CenterHorizontally
-
 
         ) {
 
@@ -104,7 +80,6 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
                 .background(Color(255, 255, 255)),) {
                 Row {
                     Button(
-                        //modifier = Modifier.size(width = 10.dp, height = 10.dp),
                         shape = CutCornerShape(percent = 10),
                         colors = ButtonDefaults.buttonColors(Color.Unspecified),
                         onClick = {
@@ -116,43 +91,32 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
                     }
 
                     Spacer(modifier = Modifier.width(65.dp))
-
                     Column {
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("登録・編集", color = Color.Black,textAlign = TextAlign.Center, fontSize = 20.sp)
                     }
 
                     Spacer(modifier = Modifier.width(65.dp))
-
                     Column {
                         Spacer(modifier = Modifier.height(2.dp))
                         Button(
-                            //modifier = Modifier.size(width = 10.dp, height = 10.dp),
-
                             shape = CutCornerShape(percent = 10),
                             colors = ButtonDefaults.buttonColors(Color.Unspecified),
                             onClick = {
                                 //data delete
                                 viewModel.deleteData()
-
                                 //back reload
                                 navController.navigate(NavName.LoginAfterScreen.name)
                             },
-
                             ) {
-                            //Spacer(modifier = Modifier.height(100.dp))
                             Text("削除", color = Color.Blue, fontSize = 20.sp)
                         }
                     }
-
                 }
             }
 
             Spacer(modifier = Modifier.height(10.dp))
-
             Text("収支", color = Color.Black, fontSize = 20.sp)
-
-
 
             Row {
                 Spacer(modifier = Modifier.width(30.dp))
@@ -167,11 +131,6 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
                 }
 
                 Spacer(modifier = Modifier.width(60.dp))
-
-
-
-
-
                 RadioButton(selected = !isRatioEnabled.value, onClick = {
                     viewModel.ratioButtonFlagSet(true)
                     DataKeep.intPlusMinus = 1
@@ -180,29 +139,22 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
                     Spacer(modifier = Modifier.height(7.dp))
                     Text("収入", color = Color.Black, fontSize = 20.sp)
                 }
-
-
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
             Text("金額", color = Color.Black, fontSize = 20.sp)
 
             Spacer(modifier = Modifier.height(5.dp))
-
-            Row() {
+            Row {
                 Spacer(modifier = Modifier.width(40.dp))
                 TextFieldMoneyEditing()
                 Column {
                     Spacer(modifier = Modifier.height(30.dp))
                     Text("円", color = Color.Black, fontSize = 20.sp)
                 }
-
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
-
             Text("カテゴリー", color = Color.Black, fontSize = 20.sp)
 
             Spacer(modifier = Modifier.height(5.dp))
@@ -213,26 +165,20 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
             Text("内容", color = Color.Black, fontSize = 20.sp)
-            Spacer(modifier = Modifier.height(5.dp))
 
+            Spacer(modifier = Modifier.height(5.dp))
             Row {
                 Spacer(modifier = Modifier.width(40.dp))
                 TextFieldFreeEditing()
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
             DatePickerEditing()
 
             Spacer(modifier = Modifier.height(80.dp))
-
-
-
             Column(modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
-
 
             ) {
                 Button(
@@ -244,15 +190,11 @@ fun Editing(navController: NavController, viewModel: EditingViewModel) {
                         viewModel.saveDataDB()
                         //back reload
                         navController.navigate(NavName.LoginAfterScreen.name)
-
                     },
-
                     ) {
                     Text("登録")
                 }
             }
-
-
         }
     }
 }
@@ -301,6 +243,7 @@ fun TextFieldFreeEditing() {
         label = { Text("入力ボックス")}
     )
 }
+
 
 @Composable
 fun DropListEditing() {
@@ -382,7 +325,6 @@ fun DatePickerEditing() {
 
     var str by remember { mutableStateOf("___________________")}
 
-
     Row(modifier = Modifier.padding(16.dp)) {
         Text(str, modifier = Modifier.padding(start = 8.dp, top = 25.dp))
 
@@ -403,12 +345,9 @@ fun DatePickerEditing() {
                     month,
                     day
                 ).show()
-
-
             }) {
             Text("日付を選択")
         }
-
     }
 }
 

@@ -25,9 +25,6 @@ fun NavGraphBuilder.RegisterScreenNavigation(navController: NavHostController) {
     })
 }
 
-
-
-
 fun NavHostController.navigateCallRegisterScreen() {
     navigate(screen.route)
 }

@@ -20,22 +20,8 @@ import com.example.myapplication.NavName
 
 @Composable
 fun TopWeekly(
-    viewModel: TopViewModel, navController: NavHostController,
-    onBackClick: () -> Unit
+    navController: NavHostController
 ) {
-    //ライフサイクルをViewModelに紐づける
-    /*viewModel.ObserveLifeCycleEvent()
-    viewModel.
-    Scaffold(
-        topBar = { BaseBackButton(titleRes = null, onBackClick = onBackClick) },
-        containerColor = AppColor.Screen_Background_White,
-        contentColor = AppColor.Text_Black
-    ) { paddingValues ->
-        K04M01_GraphScreen(
-            modifier = Modifier.padding(paddingValues),
-            viewModel = viewModel
-        )
-    } */
     Top(navController)
 }
 
@@ -44,32 +30,29 @@ fun Top(navController: NavController) {
 
     Column(modifier = Modifier.size(width = 100.dp, height = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-
-
     ) {
-
         Spacer(modifier = Modifier.height(300.dp))
+
+        //ユーザー登録ボタンの設定
         Button(
-            //modifier = Modifier.fillMaxHeight(),
-            //modifier = Modifier.size(width = 10.dp, height = 10.dp),
             modifier = Modifier.width(150.dp),
             shape = CutCornerShape(percent = 10),
             colors = ButtonDefaults.buttonColors(Color.Blue),
             onClick = {
-                //
+                //ユーザー登録画面へ遷移
                 navController.navigate(NavName.RegisterScreen.name)
             },) {
             Text("ユーザー登録")
         }
         Spacer(modifier = Modifier.height(30.dp))
-        Spacer(modifier = Modifier.width(30.dp))
 
+        //ログインボタンの設定
         Button(
-            //modifier = Modifier.size(width = 10.dp, height = 10.dp),
             modifier = Modifier.width(150.dp),
             shape = CutCornerShape(percent = 10),
             colors = ButtonDefaults.buttonColors(Color.Blue),
             onClick = {
+                //ログイン画面へ遷移
                 navController.navigate(NavName.LoginScreen.name)
             },
 

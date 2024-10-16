@@ -56,22 +56,10 @@ fun LoginAfterWeekly(
     viewModel: LoginAfterViewModel, navController: NavHostController,
     onBackClick: () -> Unit
 ) {
-    //ライフサイクルをViewModelに紐づける
-    /*viewModel.ObserveLifeCycleEvent()
-    viewModel.
-    Scaffold(
-        topBar = { BaseBackButton(titleRes = null, onBackClick = onBackClick) },
-        containerColor = AppColor.Screen_Background_White,
-        contentColor = AppColor.Text_Black
-    ) { paddingValues ->
-        K04M01_GraphScreen(
-            modifier = Modifier.padding(paddingValues),
-            viewModel = viewModel
-        )
-    } */
     LoginAfter(navController ,viewModel)
 }
 
+//各viewの配置
 @Composable
 fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
 
@@ -87,19 +75,6 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
 
         ) {
 
-
-
-
-       /* val scrollState = rememberScrollState()
-        Column(modifier = Modifier.verticalScroll(scrollState)) {
-
-
-
-
-
-
-        } */
-
         Box(modifier = Modifier.size(width = 400.dp, height = 50.dp).fillMaxSize().background(Color(255,255,255)),) {
             Row() {
                 Button(
@@ -113,7 +88,6 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                     ) {
                     Text("ログアウト", color = Color.Blue)
                 }
-
                 Spacer(modifier = Modifier.width(20.dp))
 
                 if (!isTabFlag.value) {
@@ -129,18 +103,10 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                         Spacer(modifier = Modifier.height(10.dp))
                         Text("収支", color = Color.Black,textAlign = TextAlign.Center)
                     }
-
-
-
                 }
-
             }
         }
 
-
-        Column() {
-
-        }
         if (!isTabFlag.value) {
             newRegisterData(navController, viewModel)
 
@@ -150,10 +116,7 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                 dataSearch(navController, viewModel)
 
             }
-
             Box(modifier = Modifier.size(390.dp)) {
-
-                //Spacer(modifier = Modifier.height(300.dp))
 
                 val scrollState = rememberScrollState()
                 Column(modifier = Modifier.verticalScroll(scrollState),
@@ -162,29 +125,14 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                     if (isSearchEnabled.value) {
                         MessageList(navController, viewModel)
                     }
-
                 }
-
             }
         } else {
             Box(modifier = Modifier.size(598.dp))
         }
-
-
-
-
-
-
         Spacer(modifier = Modifier.height(45.dp))
-
         MyScreen(navController,viewModel)
-
-
-
     }
-
-
-
 }
 
 @Composable
@@ -281,8 +229,6 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
                                 categoryStr = "旅行"
                             }
 
-
-
                             val freeStr = viewModel.loadSaveData[it].freeText
                             val hufou: String = if (viewModel.loadSaveData[it].plusMinus == 1) {
                                 "+"
@@ -293,8 +239,6 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
                             val money = viewModel.loadSaveData[it].money
 
                             var allStr: String = id.toString() + " " + categoryStr +  " " + freeStr  +  " " + hufou  + money.toString()
-
-
 
                             Text(allStr, color = Color.Blue)
                         } else {
@@ -309,10 +253,6 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
                 }
             }
         }
-
-
-
-
     }
 }
 
@@ -353,40 +293,6 @@ fun newRegisterData(navController: NavController, viewModel: LoginAfterViewModel
 
 }
 
-
-
-
-
-
-    /*LazyColumn{
-        item {
-            MessageCard(Message("android", "first message"))
-        }
-        item {
-            MessageCard(Message("android", "second message"))
-        }
-        item {
-            MessageCard(Message("android", "third message"))
-        }
-    } */
-
-
-
-
-@Composable
-fun MessageCard(msg: com.example.myapplication.loginafter.Message) {
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Column {
-            Text(text = msg.author)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(text = msg.body)
-        }
-
-    }
-}
 
 @Composable
 fun TextFieldYear(viewModel: LoginAfterViewModel) {
@@ -431,7 +337,6 @@ fun TextFieldMonth(viewModel: LoginAfterViewModel) {
 @Composable
 fun dataSearch(navController: NavController, viewModel: LoginAfterViewModel) {
     Button(
-        //modifier = Modifier.size(width = 10.dp, height = 10.dp),
         shape = CutCornerShape(percent = 10),
         colors = ButtonDefaults.buttonColors(Color.Blue),
         onClick = {

@@ -16,14 +16,11 @@ fun NavGraphBuilder.TopScreenNavigation(navController: NavHostController) {
 
     val vm: TopViewModel = viewModel()
     ProcessLifecycleOwner.get().lifecycle.addObserver(vm)
-    //ProcessLifecycleOwner.get().lifecycle.removeObserver(vm)
     vm.setNavController(navController)
     LaunchedEffect(vm, block = {
         delay(500L)
     })
-    TopWeekly(viewModel = vm,navController, onBackClick = {
-        navController.popBackStack()
-    })
+    TopWeekly(navController)
 }
 
 

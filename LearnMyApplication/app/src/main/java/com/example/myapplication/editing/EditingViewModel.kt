@@ -16,27 +16,21 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class EditingViewModel : BaseViewModel()  {
+    //収支登録・編集画面
 
     private val dao = DatabaseUse.database.dataCallDao()
     override fun initView() {
         Log.d("Debug", "${this.javaClass.simpleName}::initView")
-
     }
-
 
     //flagがtrueの時は支出かつラジオボタン選択状態、flagがfalseの場合は収入かつラジオボタン選択状態
     private val keepRatioButtonFlag : MutableState<Boolean> = mutableStateOf(false)
 
     val isRatioButtonEnabledState = derivedStateOf { keepRatioButtonFlag }
 
-
-
     fun ratioButtonFlagSet(flag: Boolean) {
-
         keepRatioButtonFlag.value = !flag
-
     }
-
     fun saveDataDB() {
         if (keepRatioButtonFlag.value) {
             DataKeep.intPlusMinus = 1
@@ -78,6 +72,4 @@ object DataKeep {
     var intMoney: Int = 0
     var dataRecodeSize = 0
     var dataRecodeAllSize = 0
-
-    //lateinit var database: AppDatabase
 }

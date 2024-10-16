@@ -1,12 +1,11 @@
 package com.example.myapplication
 
 enum class NavName(val value: String) {
-    TopScreen("topScreen"),
-    RegisterScreen("registerScreen"),
-    LoginScreen("loginScreen"),
-    LoginAfterScreen("loginAfterScreen"),
-    ExpenditureScreen("expenditureScreen"),
-    EditingScreen("editingScreen")
+    TopScreen("topScreen"), //ユーザー登録かログインか選択する画面
+    RegisterScreen("registerScreen"), //ユーザー登録する画面
+    LoginScreen("loginScreen"), //ログイン画面
+    LoginAfterScreen("loginAfterScreen"), //ログイン後に表示する画面
+    EditingScreen("editingScreen"), //収支登録・編集画面
     ;
     val route: String
         get() = when (this) {
@@ -14,7 +13,6 @@ enum class NavName(val value: String) {
             RegisterScreen,
             LoginScreen,
             LoginAfterScreen,
-            ExpenditureScreen,
             EditingScreen
            -> basePath
         }

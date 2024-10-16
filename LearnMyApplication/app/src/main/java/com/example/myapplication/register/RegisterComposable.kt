@@ -42,36 +42,17 @@ fun RegisterWeekly(
     viewModel: RegisterViewModel, navController: NavHostController,
     onBackClick: () -> Unit
 ) {
-    //ライフサイクルをViewModelに紐づける
-    /*viewModel.ObserveLifeCycleEvent()
-    viewModel.
-    Scaffold(
-        topBar = { BaseBackButton(titleRes = null, onBackClick = onBackClick) },
-        containerColor = AppColor.Screen_Background_White,
-        contentColor = AppColor.Text_Black
-    ) { paddingValues ->
-        K04M01_GraphScreen(
-            modifier = Modifier.padding(paddingValues),
-            viewModel = viewModel
-        )
-    } */
     Register(navController)
-
-
 }
 
-@Composable
-fun VerticalScroller(content: () -> Unit) {
-
-}
-
+//各viewの配置
 @Composable
 fun Register(navController: NavController) {
     Column(modifier = Modifier.size(width = 100.dp, height = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
-
+        //縦スクロール設定
         val scrollState = rememberScrollState()
         Column(modifier = Modifier.verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -87,13 +68,11 @@ fun Register(navController: NavController) {
             Spacer(modifier = Modifier.height(200.dp))
 
             Button(
-                //modifier = Modifier.size(width = 10.dp, height = 10.dp),
                 shape = CutCornerShape(percent = 10),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
                 onClick = {
 
                     navController.popBackStack()
-
                     /*navController.navigate(NavName.LoginAfterScreen.name)
                     val ins = Certification()
                     val vm = AppViewModel()
@@ -106,16 +85,8 @@ fun Register(navController: NavController) {
                     RegisterData.password?.let {
                         password = it
                     }
-
-
-
                     ins.createAccount(mail, password) */
-
-
-
-
                 },
-
                 ) {
                 Text("登録")
             }
@@ -123,6 +94,7 @@ fun Register(navController: NavController) {
     }
 }
 
+//チェックボックス
 @Composable
 fun CheckboxOne() {
 
@@ -141,6 +113,7 @@ fun CheckboxOne() {
     }
 }
 
+//ピッカー
 @Composable
 fun DatePickerExample() {
     val context = LocalContext.current
@@ -172,32 +145,10 @@ fun DatePickerExample() {
             }) {
             Text("日付を選択")
         }
-
     }
 }
 
-@Composable
-fun TextFieldPasswordRegister() {
-    var text by remember { mutableStateOf("") }
-
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    TextField(
-        value = text, onValueChange = { newText ->
-            text = newText
-
-        },
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-        keyboardActions = KeyboardActions(onDone = {
-
-            RegisterData.password = text
-            keyboardController?.hide()
-        }),
-
-        label = { Text("入力ボックス")}
-    )
-}
-
+//メールを入力するためのテキストフィールド
 @Composable
 fun TextFieldMailRegister() {
     var text by remember { mutableStateOf("") }
@@ -218,10 +169,28 @@ fun TextFieldMailRegister() {
     )
 }
 
+//パスワードを入力するためのテキストフィールド
 @Composable
-fun ObserveLifeCycleEvent() {
-    TODO("Not yet implemented")
+fun TextFieldPasswordRegister() {
+    var text by remember { mutableStateOf("") }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    TextField(
+        value = text, onValueChange = { newText ->
+            text = newText
+        },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = {
+
+            RegisterData.password = text
+            keyboardController?.hide()
+        }),
+        label = { Text("入力ボックス")}
+    )
 }
+
+
 
 
 
