@@ -248,12 +248,21 @@ fun TextFieldFreeEditing() {
 @Composable
 fun DropListEditing() {
 
-    var str by remember { mutableStateOf("___________________")}
+    var str by remember { mutableStateOf("")}
+
+
+
+
+
+
+
 
     // メニューの開閉をコントロールするため
     var expanded by remember { mutableStateOf(false) }
 
-    Text(str, modifier = Modifier.padding(start = 8.dp, top = 25.dp))
+    Text(str, modifier = Modifier.padding(start = 8.dp, top = 5.dp).height(40.dp).width(230.dp).background(
+        color = Color(0xFFE0E0E0)
+    ))
 
     Box(
         modifier = Modifier
@@ -287,6 +296,7 @@ fun DropListEditing() {
                     color = Color.White,
                 )/*TODO*/ }, onClick = {
                 str = "趣味"
+                expanded = false
                 DataKeep.intCategory = 1/*TODO*/ })
 
             DropdownMenuItem(text = {
@@ -298,6 +308,7 @@ fun DropListEditing() {
 
                 /*TODO*/ }, onClick = {
                 str = "給与"
+                expanded = false
                 DataKeep.intCategory = 2/*TODO*/ })
 
             DropdownMenuItem(text = {
@@ -309,6 +320,7 @@ fun DropListEditing() {
 
                 /*TODO*/ }, onClick = {
                 str = "旅行"
+                expanded = false
                 DataKeep.intCategory = 3/*TODO*/ }
             )
         }
@@ -323,10 +335,11 @@ fun DatePickerEditing() {
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-    var str by remember { mutableStateOf("___________________")}
+    var str by remember { mutableStateOf("")}
 
-    Row(modifier = Modifier.padding(16.dp)) {
-        Text(str, modifier = Modifier.padding(start = 8.dp, top = 25.dp))
+    Row(modifier = Modifier.padding(30.dp)) {
+        Text(str, modifier = Modifier.padding(start = 8.dp, top = 5.dp).height(40.dp).width(200.dp).background(
+            color = Color(0xFFE0E0E0)))
 
         Button(
             shape = CutCornerShape(percent = 10),

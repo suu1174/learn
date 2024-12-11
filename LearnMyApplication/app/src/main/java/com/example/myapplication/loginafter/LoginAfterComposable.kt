@@ -121,7 +121,7 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                 val scrollState = rememberScrollState()
                 Column(modifier = Modifier.verticalScroll(scrollState),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("--------------", color = Color.Black)
+                    //Text("--------------", color = Color.Black)
                     if (isSearchEnabled.value) {
                         MessageList(navController, viewModel)
                     }
@@ -199,7 +199,7 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
                 item {
 
                     Button(
-                        //modifier = Modifier.size(width = 10.dp, height = 10.dp),
+                        modifier = Modifier.width(400.dp).background(color = Color(0xFFFFFFFF)),
                         shape = CutCornerShape(percent = 10),
                         colors = ButtonDefaults.buttonColors(Color.Unspecified),
                         onClick = {
@@ -238,7 +238,7 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
 
                             val money = viewModel.loadSaveData[it].money
 
-                            var allStr: String = id.toString() + " " + categoryStr +  " " + freeStr  +  " " + hufou  + money.toString()
+                            var allStr: String = categoryStr +  "   " + freeStr  +  "   " + hufou  + money.toString() + "円"
 
                             Text(allStr, color = Color.Blue)
                         } else {

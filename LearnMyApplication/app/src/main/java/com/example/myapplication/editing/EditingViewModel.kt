@@ -32,7 +32,7 @@ class EditingViewModel : BaseViewModel()  {
         keepRatioButtonFlag.value = !flag
     }
     fun saveDataDB() {
-        if (keepRatioButtonFlag.value) {
+        if (!keepRatioButtonFlag.value) {
             DataKeep.intPlusMinus = 1
         } else {
             DataKeep.intPlusMinus = 0
@@ -68,7 +68,7 @@ object DataKeep {
 
     var strFree: String = ""
     var intCategory: Int = 0
-    var intPlusMinus: Int = 2
+    var intPlusMinus: Int = 1
     var intMoney: Int = 0
     var dataRecodeSize = 0
     var dataRecodeAllSize = 0
