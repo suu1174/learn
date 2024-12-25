@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -64,7 +65,9 @@ fun LoginAfterWeekly(
 fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
 
 
-    Box(modifier = Modifier.fillMaxSize().background(Color(255,236,179)))
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color(255, 236, 179)))
 
     val isTabFlag by viewModel.tabFlag
 
@@ -75,7 +78,10 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
 
         ) {
 
-        Box(modifier = Modifier.size(width = 400.dp, height = 50.dp).fillMaxSize().background(Color(255,255,255)),) {
+        Box(modifier = Modifier
+            .size(width = 400.dp, height = 50.dp)
+            .fillMaxSize()
+            .background(Color(255, 255, 255)),) {
             Row() {
                 Button(
                     //modifier = Modifier.size(width = 10.dp, height = 10.dp),
@@ -104,11 +110,39 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
                         Text("収支", color = Color.Black,textAlign = TextAlign.Center)
                     }
                 }
+
+                Spacer(modifier = Modifier.width(35.dp))
+
+                Box() {
+                    Button(
+                        modifier = Modifier.background(
+                            color = Color(0xFFE0E0E0)),
+                        shape = CutCornerShape(percent = 10),
+                        colors = ButtonDefaults.buttonColors(Color.Unspecified),
+                        onClick = {
+
+                            DataKeep.intId = 0
+                            DataKeep.strDate = "kari"
+                            DataKeep.intCategory = 0
+                            DataKeep.strFree = ""
+                            DataKeep.intPlusMinus = 2
+                            DataKeep.intMoney = 0
+                            navController.navigate(NavName.EditingScreen.name)
+
+                        },
+
+                        ) {
+                        Text("収支新規登録", color = Color.Red)
+                    }
+
+                    Icon(Icons.Filled.Add, contentDescription = "お気に入り", modifier = Modifier.background(
+                        color = Color(0xFFE0E0E0)).height(48.dp).align(Alignment.CenterEnd))
+                }
             }
         }
 
         if (!isTabFlag.value) {
-            newRegisterData(navController, viewModel)
+            //newRegisterData(navController, viewModel)
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 TextFieldYear(viewModel)
@@ -130,7 +164,7 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
         } else {
             Box(modifier = Modifier.size(598.dp))
         }
-        Spacer(modifier = Modifier.height(45.dp))
+        Spacer(modifier = Modifier.height(85.dp))
         MyScreen(navController,viewModel)
     }
 }
@@ -199,7 +233,9 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
                 item {
 
                     Button(
-                        modifier = Modifier.width(400.dp).background(color = Color(0xFFFFFFFF)),
+                        modifier = Modifier
+                            .width(400.dp)
+                            .background(color = Color(0xFFFFFFFF)),
                         shape = CutCornerShape(percent = 10),
                         colors = ButtonDefaults.buttonColors(Color.Unspecified),
                         onClick = {
@@ -258,12 +294,39 @@ fun MessageList(navController: NavController, viewModel: LoginAfterViewModel) {
 
 @Composable
 fun newRegisterData(navController: NavController, viewModel: LoginAfterViewModel) {
-    /*Button(
-        //modifier = Modifier.size(width = 10.dp, height = 10.dp),
-        shape = CutCornerShape(percent = 10),
-        colors = ButtonDefaults.buttonColors(Color.Unspecified),
-        onClick = {
 
+    Box {
+        Button(
+            modifier = Modifier.background(
+                color = Color(0xFFE0E0E0)),
+            shape = CutCornerShape(percent = 10),
+            colors = ButtonDefaults.buttonColors(Color.Unspecified),
+            onClick = {
+
+                DataKeep.intId = 0
+                DataKeep.strDate = "kari"
+                DataKeep.intCategory = 0
+                DataKeep.strFree = ""
+                DataKeep.intPlusMinus = 2
+                DataKeep.intMoney = 0
+                navController.navigate(NavName.EditingScreen.name)
+
+            },
+
+            ) {
+            Text("収支新規登録", color = Color.Red)
+        }
+
+        Icon(Icons.Filled.Add, contentDescription = "お気に入り", modifier = Modifier.background(
+            color = Color(0xFFE0E0E0)).height(50.dp))
+    }
+
+
+
+
+    Row {
+        Text(text = "収支追加")
+        IconButton(onClick = {
             DataKeep.intId = 0
             DataKeep.strDate = "kari"
             DataKeep.intCategory = 0
@@ -271,25 +334,15 @@ fun newRegisterData(navController: NavController, viewModel: LoginAfterViewModel
             DataKeep.intPlusMinus = 2
             DataKeep.intMoney = 0
             navController.navigate(NavName.EditingScreen.name)
-
-        },
-
-        ) {
-        Text("収支新規登録", color = Color.Red)
-    } */
-
-    IconButton(onClick = {
-        DataKeep.intId = 0
-        DataKeep.strDate = "kari"
-        DataKeep.intCategory = 0
-        DataKeep.strFree = ""
-        DataKeep.intPlusMinus = 2
-        DataKeep.intMoney = 0
-        navController.navigate(NavName.EditingScreen.name)
-    }) {
-        // painterで指定する
-        Icon(Icons.Filled.Add, contentDescription = "お気に入り")
+        }) {
+            // painterで指定する
+            Icon(Icons.Filled.Add, contentDescription = "お気に入り")
+        }
     }
+
+
+
+
 
 }
 
