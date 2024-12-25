@@ -13,6 +13,8 @@ import com.example.myapplication.db.DatabaseUse
 import com.example.myapplication.editing.DataKeep
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class LoginAfterViewModel : BaseViewModel()  {
 
@@ -31,6 +33,8 @@ class LoginAfterViewModel : BaseViewModel()  {
     private val tabReceive :  MutableState<Boolean> = mutableStateOf(false)
     val tabFlag = derivedStateOf { tabReceive }
 
+    var initViewSearchFlag = false
+
 
     override fun initView() {
         Log.d("Debug", "${this.javaClass.simpleName}::initView")
@@ -39,6 +43,14 @@ class LoginAfterViewModel : BaseViewModel()  {
             loadSaveData = dao.loadAllDataCall()
             DataKeep.dataRecodeSize = loadSaveData.size
             DataKeep.dataRecodeAllSize = loadSaveData.size
+
+            val now = LocalDateTime.now()
+            val df = DateTimeFormatter.ofPattern("yyyy")
+            val dfa = DateTimeFormatter.ofPattern("MM")
+            searchYear = df.format(now).toIntOrNull()!!
+            searchMonth = dfa.format(now).toIntOrNull()!!
+            searchDataYearMonthDB()
+            initViewSearchFlag = false
 
         }
     }

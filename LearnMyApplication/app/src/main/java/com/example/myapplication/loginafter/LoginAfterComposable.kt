@@ -50,6 +50,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.ui.text.style.TextAlign
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -166,6 +168,12 @@ fun LoginAfter(navController: NavController , viewModel: LoginAfterViewModel) {
         }
         Spacer(modifier = Modifier.height(85.dp))
         MyScreen(navController,viewModel)
+    }
+
+    if (!viewModel.initViewSearchFlag) {
+        viewModel.initViewSearchFlag = true
+        viewModel.searchButtonFlagSet(false)
+        viewModel.searchButtonFlagSet(true)
     }
 }
 
@@ -349,7 +357,11 @@ fun newRegisterData(navController: NavController, viewModel: LoginAfterViewModel
 
 @Composable
 fun TextFieldYear(viewModel: LoginAfterViewModel) {
-    var text by remember { mutableStateOf("") }
+
+    val now = LocalDateTime.now()
+    val df = DateTimeFormatter.ofPattern("yyyy")
+    val fdate = df.format(now)
+    var text by remember { mutableStateOf(fdate) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     TextField(
@@ -369,7 +381,11 @@ fun TextFieldYear(viewModel: LoginAfterViewModel) {
 
 @Composable
 fun TextFieldMonth(viewModel: LoginAfterViewModel) {
-    var text by remember { mutableStateOf("") }
+
+    val now = LocalDateTime.now()
+    val df = DateTimeFormatter.ofPattern("MM")
+    val fdate = df.format(now)
+    var text by remember { mutableStateOf(fdate) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     TextField(
