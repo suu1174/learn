@@ -37,12 +37,12 @@ fun LoginWeekly(
     viewModel: LoginViewModel, navController: NavHostController,
     onBackClick: () -> Unit
 ) {
-    Login(navController)
+    Login(navController, viewModel)
 }
 
 //各viewの配置
 @Composable
-fun Login(navController: NavController) {
+fun Login(navController: NavController, viewModel: LoginViewModel) {
 
     Column(modifier = Modifier.size(width = 100.dp, height = 100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -53,9 +53,9 @@ fun Login(navController: NavController) {
         Column(modifier = Modifier.verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text("メールアドレス",modifier = Modifier.padding(end = 175.dp, top = 25.dp))
-            TextFieldPasswordLogin()
+            TextFieldPasswordLogin(viewModel)
             Text("パスワード", modifier = Modifier.padding(end = 195.dp, top = 25.dp))
-            TextFieldMailLogin()
+            TextFieldMailLogin(viewModel)
 
             Spacer(modifier = Modifier.height(300.dp))
 
@@ -63,19 +63,26 @@ fun Login(navController: NavController) {
                 shape = CutCornerShape(percent = 10),
                 colors = ButtonDefaults.buttonColors(Color.Blue),
                 onClick = {
-                    navController.navigate(NavName.LoginAfterScreen.name)
 
-                    val ins = Certification()
-                    var mail: String = "aaa"
-                    var password: String = "bbb"
-                    RegisterData.mail?.let {
+
+
+                    var mail: String = ""
+                    var password: String = ""
+                    viewModel.mail?.let {
                         mail = it
                     }
-                    RegisterData.password?.let {
+                    viewModel.password?.let {
                         password = it
                     }
 
-                    ins.signIn(mail, password)
+                    if (mail.isNotEmpty() && password.isNotEmpty()){
+                        val ins = Certification()
+                        val result = ins.signIn(mail, password)
+
+                        navController.navigate(NavName.LoginAfterScreen.name)
+                    }
+
+
                 },
 
                 ) {
@@ -87,7 +94,7 @@ fun Login(navController: NavController) {
 
 //メールを入力するためのテキストフィールド
 @Composable
-fun TextFieldMailLogin() {
+fun TextFieldMailLogin(viewModel: LoginViewModel) {
     var text by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -98,7 +105,7 @@ fun TextFieldMailLogin() {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = {
 
-            RegisterData.mail = text
+            viewModel.mail = text
             keyboardController?.hide()
         }), label = { Text("入力ボックス")}
 
@@ -107,7 +114,7 @@ fun TextFieldMailLogin() {
 
 //パスワードを入力するためのテキストフィールド
 @Composable
-fun TextFieldPasswordLogin() {
+fun TextFieldPasswordLogin(viewModel: LoginViewModel) {
     var text by remember { mutableStateOf("") }
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -120,7 +127,7 @@ fun TextFieldPasswordLogin() {
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = {
 
-            RegisterData.password = text
+            viewModel.password = text
             keyboardController?.hide()
         }),
 

@@ -9,4 +9,7 @@ class LoginViewModel : BaseViewModel() {
         Log.d("Debug", "${this.javaClass.simpleName}::initView")
     }
 
+    var mail: String? = ""
+    var password: String? = ""
+
 }

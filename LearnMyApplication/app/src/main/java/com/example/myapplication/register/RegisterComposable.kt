@@ -1,6 +1,7 @@
 package com.example.myapplication.register
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.widget.DatePicker
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,7 +35,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.myapplication.Certification
 import com.example.myapplication.RegisterData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.util.Calendar
 
 @Composable
@@ -72,10 +77,8 @@ fun Register(navController: NavController) {
                 colors = ButtonDefaults.buttonColors(Color.Blue),
                 onClick = {
 
-                    navController.popBackStack()
-                    /*navController.navigate(NavName.LoginAfterScreen.name)
-                    val ins = Certification()
-                    val vm = AppViewModel()
+
+
                     var mail: String = "aaa"
                     var password: String = "bbb"
 
@@ -85,7 +88,14 @@ fun Register(navController: NavController) {
                     RegisterData.password?.let {
                         password = it
                     }
-                    ins.createAccount(mail, password) */
+
+                    if (mail.isNotEmpty() && password.isNotEmpty()) {
+                        val ins = Certification()
+
+
+                        val result = ins.createAccount(mail, password, navController)
+                        //navController.popBackStack()
+                    }
                 },
                 ) {
                 Text("登録")
@@ -93,6 +103,8 @@ fun Register(navController: NavController) {
         }
     }
 }
+
+
 
 //チェックボックス
 @Composable
